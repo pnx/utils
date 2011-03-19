@@ -6,6 +6,20 @@
 BASEDIR=~/ql
 REPLAYDIR=replays
 
+if [ ! -h "${BASEDIR}/demos" ]; then
+    
+    if [ -d "${BASEDIR}/demos" ] && [`/bin/ls "${BASEDIR}/demos" | /bin/wc -l` -eq 0 ]; then
+        /bin/rm -fr "${BASEDIR}/demos" 2> /dev/null
+    else 
+        # move if not empty or is a file
+        /bin/mv "${BASEDIR}/demos" "${BASEDIR}/demos-bkp" 2> /dev/null
+        if [ $? -eq 1 ]; then
+            /bin/echo "Error: can't backup '${BASEDIR}/demos'; please do it yourself"
+            return 1
+        fi
+    fi
+fi
+
 OLDTARGET=$(/bin/basename `readlink -s "${BASEDIR}/demos"`)
 NEWTARGET=$(/bin/date '+%Y-%m-%d')
 
