@@ -27,7 +27,7 @@ if [ "${REPLAYDIR}/${OLDTARGET}" != "${REPLAYDIR}/${NEWTARGET}" ]; then
 
     # create newtarget
     if [ ! -d "${BASEDIR}/${REPLAYDIR}/${NEWTARGET}" ]; then
-        /bin/mkdir -p "${BASEDIR}/${REPLAYDIR}/${NEWTARGET}"
+        /bin/mkdir -p "${BASEDIR}/${REPLAYDIR}/${NEWTARGET}" 2> /dev/null
     fi
     
     # change the symlink to point to newtarget
@@ -35,6 +35,6 @@ if [ "${REPLAYDIR}/${OLDTARGET}" != "${REPLAYDIR}/${NEWTARGET}" ]; then
     
     # remove oldtarget if empty
     if [ `/bin/ls "${BASEDIR}/${REPLAYDIR}/${OLDTARGET}/" | /bin/wc -l` -eq 0 ]; then
-        /bin/rm -fr "${BASEDIR}/${REPLAYDIR}/${OLDTARGET}/"
+        /bin/rm -fr "${BASEDIR}/${REPLAYDIR}/${OLDTARGET}/" 2> /dev/null
     fi
 fi
