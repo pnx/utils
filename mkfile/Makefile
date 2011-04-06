@@ -1,6 +1,6 @@
 
 CC 	   = gcc
-CFLAGS = -02 -Wall
+CFLAGS = -O2 -Wall
 PREFIX = /usr/local/bin/
 
 .PHONY = install clean
