@@ -18,6 +18,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdarg.h>
 #include <string.h>
 #include <ctype.h>
 #include <unistd.h>
@@ -28,7 +29,6 @@
 #include <libintl.h>
 
 #define	MIN(a, b) ((a) < (b) ? (a) : (b))
-#define error(...) fprintf(stderr, __VA_ARGS__)
 
 #define	BLOCKSIZE	512
 
@@ -37,9 +37,19 @@
 off_t size = 0;
 int verbose = 0, noalloc = 0;
 
+static int error(const char *msg, ...) {
+
+	int rc;
+	va_list vl;
+	va_start(vl, msg);
+	rc = vfprintf(stderr, gettext(msg), vl);
+	va_end(vl);
+	return rc;
+}
+
 static void usage() {
 
-	error(gettext("Usage: mkfile [-nv] <size>[g|k|b|m] <name1> [<name2>] ...\n"));
+	error("Usage: mkfile [-nv] <size>[g|k|b|m] <name1> [<name2>] ...\n");
 	exit(1);
 }
 
@@ -72,13 +82,13 @@ static off_t parse_size(char *str) {
 			factor = 1024 * 1024 * 1024;
 			break;
 		default :
-			error(gettext("unknown size %s\n"), str);
+			error("unknown size %s\n", str);
 			usage();
 		}
 		str[len-1] = '\0';
 
 		if (!isnumeric(str)) {
-			error(gettext("unknown size %s\n"), str);
+			error("unknown size %s\n", str);
 			usage();
 		}
 	}
@@ -93,15 +103,12 @@ static int mkfile(const char *file) {
 
 	errno = 0;
 
-	if (verbose) {
-		printf(gettext("%s %lld bytes\n"),
-			file, (unsigned long long)size);
-	}
+	if (verbose)
+		printf("%s %lld bytes\n", file, (unsigned long long)size);
 
 	fd = open(file, O_CREAT | O_TRUNC | O_RDWR, MODE);
 	if (fd < 0) {
-		error(gettext("Could not open %s: %s\n"),
-			file, strerror(errno));
+		error("Could not open %s: %s\n", file, strerror(errno));
 		return -1;
 	}
 
@@ -110,16 +117,16 @@ static int mkfile(const char *file) {
 		struct stat st;
 
 		if (fstat(fd, &st) < 0) {
-			error(gettext("Could not stat %s: %s\n"),
-				file, strerror(errno));
+			error("Could not stat %s: %s\n", file, strerror(errno));
 			goto exit;
 		}
 		if (blksz != st.st_blksize) {
 			blksz = st.st_blksize;
 			blk = calloc(blksz, 1);
 			if (!blk) {
-				error(gettext("Could not allocate buffer (%u bytes): %s\n"),
-					(unsigned) blksz, strerror(errno));
+				error("Could not allocate buffer "
+					"(%u bytes): %s\n", (unsigned) blksz,
+					strerror(errno));
 				goto exit;
 			}
 		}
@@ -131,9 +138,9 @@ static int mkfile(const char *file) {
 				rc = 0;
 			written += rc;
 			if (rc != bytes) {
-				error(gettext("%s: written %lu of %lu bytes: %s\n"),
-					file, (unsigned long)written, (unsigned long)size,
-					strerror(errno));
+				error("%s: written %lu of %lu bytes: %s\n",
+					file, (unsigned long)written,
+					(unsigned long)size, strerror(errno));
 				goto exit;
 			}
 		}
@@ -143,7 +150,7 @@ exit:
 	if (blk)
 		free(blk);
 	if (close(fd) < 0) {
-		error(gettext("Error encountered when closing %s: %s\n"),
+		error("Error encountered when closing %s: %s\n",
 			file, strerror(errno));
 	}
 	return errno != 0;
