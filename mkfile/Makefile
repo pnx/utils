@@ -1,9 +1,9 @@
 
-CC 	   = gcc
-CFLAGS = -O2 -Wall
-PREFIX = /usr/local/bin/
+CC	= gcc
+CFLAGS	= -O2 -Wall
+PREFIX	= /usr/local/bin/
 
-.PHONY = install clean
+.PHONY	= install clean
 
 mkfile : mkfile.c
 	$(CC) $(CFLAGS) $< -o $@
@@ -11,5 +11,5 @@ mkfile : mkfile.c
 install : mkfile
 	cp mkfile $(PREFIX)
 
-clean : 
+clean :
 	$(RM) mkfile
