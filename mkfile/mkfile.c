@@ -49,7 +49,7 @@ static int error(const char *msg, ...) {
 
 static void usage() {
 
-	error("Usage: mkfile [-nv] <size>[g|k|b|m] <name1> [<name2>] ...\n");
+	error("Usage: mkfile [-nv] <size>[g|m|k|b] <name1> [<name2>] ...\n");
 	exit(1);
 }
 
