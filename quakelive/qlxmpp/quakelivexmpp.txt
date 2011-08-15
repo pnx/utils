@@ -1,0 +1,68 @@
+#######################################################################
+
+How to connect to xmpp.quakelive.com 0.1
+by Luigi Auriemma
+e-mail: aluigi@autistici.org
+web:    aluigi.org
+
+#######################################################################
+
+The following is a quick technical description of the steps that must
+be made to get the current password for the xmpp/jabber service on
+xmpp.quakelive.com.
+These are the exact steps done by the quakelivexmpp tool in this
+package.
+
+
+--------
+1) LOGIN
+--------
+
+send a POST request to
+
+  http://www.quakelive.com/user/login
+
+using the following content:
+
+  u=MAIL&p=PASSWORD&r=0
+
+where MAIL is your mail address, for example mymail@example.com and
+PASSWORD is your password, for example mypassword
+
+
+------------
+2) USER INFO
+------------
+
+now using the same cookies setted by the server in the previous reply
+(Set-Cookie) go on the following address:
+
+  http://www.quakelive.com/user/load
+
+in the reply are available various fields and the password we need to
+access the XMPP server is the string after "XAID", example:
+
+{"SESSION":"????????????????????????????????","USERNAME":"myusername",
+"XAID":"0123456789abcdef0123456789abcdef01234567","STATUS":"ACTIVE",
+"USERID":"1234567"...
+
+in this case the current xmpp/jabber password for xmpp.quakelive.com is
+0123456789abcdef0123456789abcdef01234567
+
+note: this password changes at each login performed by the user.
+
+
+-------
+3) XMPP
+-------
+
+now is possible to use the own preferred jabber/xmpp client for
+connecting to the server:
+
+Username:       your username
+Domain/server:  xmpp.quakelive.com
+Resource:       quakelive
+Password:       the XAID password seen before
+
+
+#######################################################################
