@@ -2,7 +2,7 @@
 CC	= gcc
 CFLAGS	= -O2 -Wall
 STRIP   = strip
-PREFIX	= /usr/local/bin/
+PREFIX	= /usr/local
 
 .PHONY	= install clean
 
@@ -18,7 +18,7 @@ ifdef STRIP
 endif
 
 install : mkfile
-	cp mkfile $(PREFIX)
+	cp mkfile $(PREFIX)/bin
 
 clean :
 	$(RM) mkfile
