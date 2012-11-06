@@ -1,0 +1,5 @@
+#!/bin/sh
+
+SCRUB='/usr/sbin/zpool scrub'
+
+# ${SCRUB} <pool>
