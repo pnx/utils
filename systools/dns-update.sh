@@ -21,8 +21,8 @@ function loopia_update {
 
 		echo "Updating ${IP} -> ${i}"
 	
-		$CURL -v --user \'${1}:${2}\' \
-			"http://dns.loopia.se/XDynDNSServer/XDynDNS.php?hostname=${i}\&myip=${IP}"
+		$CURL -v --user "${1}:${2}" \
+			"http://dns.loopia.se/XDynDNSServer/XDynDNS.php?hostname=${i}&myip=${IP}"
 	done
 }
 
