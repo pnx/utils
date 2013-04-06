@@ -33,9 +33,9 @@ void hexdump(unsigned char *ptr, unsigned size) {
 
 		/* print address. */
 		if (c == 0)
-			printf("%4i %.8X: ", i, i);
+			printf("%4i %.8X:", i, i);
 
-		printf("%.2X ", *(ptr + i));
+		printf(" %.2X", *(ptr + i));
 
 		/* 16:th byte in the row, jump to new line.*/
 		if (c == 15)
