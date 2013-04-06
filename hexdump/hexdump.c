@@ -37,7 +37,7 @@ void hexdump(unsigned char *ptr, unsigned size) {
 
 		printf("%.2X ", *(ptr + i));
 
-		/* 15:th byte in the row, jump to new line.*/
+		/* 16:th byte in the row, jump to new line.*/
 		if (c == 15)
 			printf("\n");
 	}
