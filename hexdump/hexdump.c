@@ -39,10 +39,10 @@ void hexdump(unsigned char *ptr, unsigned size) {
 
 		/* 16:th byte in the row, jump to new line.*/
 		if (c == 15)
-			printf("\n");
+			putchar('\n');
 	}
 
 	/* print an newline if we exited in the middle of a row */
 	if (size % 16)
-		printf("\n");
+		putchar('\n');
 }
