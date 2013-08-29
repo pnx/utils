@@ -49,7 +49,13 @@ static int error(const char *msg, ...) {
 
 static void usage() {
 
-	error("Usage: mkfile [-nv] <size>[g|m|k|b] <name1> [<name2>] ...\n");
+	error("Usage: mkfile [-nv] <size>[g|m|k|b] <name1> [<name2>] ...\n"
+		"  -n     Create an empty filename. \n"
+		"         The size is noted, but disk blocks aren't allocated"
+		" until data is written to them.\n\n"
+		"  -v     Verbose. Report the names and"
+		" sizes of created files.\n");
+
 	exit(1);
 }
 
