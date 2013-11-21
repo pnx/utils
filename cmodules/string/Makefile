@@ -6,7 +6,7 @@ LDFLAGS =
 
 all : test
 
-test : tests.o strrev.o
+test : tests.o strrev.o memcpy_sb.o
 	$(LD) $(LDFLAGS) -o $@ $^
 
 clean :
