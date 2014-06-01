@@ -24,8 +24,18 @@ function ip_inet4_addr {
 		awk '{print $4}' | grep -Eo ${PATTERN} 2> /dev/null
 }
 
+function lookup_public_addr {
+
+	${CURL} -s dns.loopia.se/checkip/checkip.php | sed 's/^.*: \([^<]*\).*$/\1/'; echo
+}
+
 # interface
 function inet4_addr {
+
+	if [ "lookup" = "${1}" ]; then
+		echo $(lookup_public_addr)
+		return
+	fi
 
 	IP=$(ip_inet4_addr "${1}")
 
