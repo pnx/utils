@@ -6,7 +6,7 @@ LDFLAGS =
 
 all : test
 
-test : crc32-test.o crc32.o
+test : test.o crc32.o
 	$(LD) $(LDFLAGS) -o $@ $^
 
 clean :
@@ -14,4 +14,3 @@ clean :
 
 distclean : clean
 	$(RM) test
-
