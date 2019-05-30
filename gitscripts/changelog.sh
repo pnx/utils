@@ -1,4 +1,4 @@
-
+#!/bin/sh
 # Builds a changelog for changes between last tag and HEAD
 
 if [ -n "${1}" ]; then
