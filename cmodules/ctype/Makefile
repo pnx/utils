@@ -4,10 +4,10 @@ LD = $(CC)
 CFLAGS =
 LDFLAGS =
 
-all : test-ctype
+all : test
 
-test-ctype : ctype.o test-ctype.o
+test : ctype.o test.o
 	$(LD) $(LDFLAGS) -o $@ $^
-	
+
 clean :
-	$(RM) *.o test-ctype
+	$(RM) *.o test
